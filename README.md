@@ -1,11 +1,10 @@
 # FamiliarGround
-CityDataHack March 2018
 
-We are working to solve social isolation for the Barking and Dagenham Borough of London.
+*We have designed an evidence based service to help reduce social isolation in Barking and Dagenham. It helps GP's and frontline staff across the health and social care system provide social prescriptions for people at risk of or currently suffering from social isolation.*
 
 24,000 people currently suffer from social isolation in Barking & Dagenham (based on the national average).
 
-People tend to start experiencing social isolation after certain life events such as:
+**People tend to start experiencing social isolation after certain life events such as:**
 - Pregnancy
 - Divorce
 - Retiring
@@ -19,7 +18,7 @@ One important way we can address this problem is through the NHS using GP's and 
 
 In 2017 250 people recieved a social prescription for social isolation from GP practices in Barking and Dagenham. This is a tiny proportion of the roughly 24,000 estimated to suffer from social isolation in the borough.
 
-One of the key blockers to GP's using social prescribing more is lack of information about available services. 
+**One of the key blockers to GP's using social prescribing more is lack of information about available services.**
 
 In a GP Online survey from 2017, 40% of GP's said they would refer more if they had more information about available services.
 
