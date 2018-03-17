@@ -3,9 +3,7 @@ CityDataHack March 2018
 
 We are working to solve social isolation for the Barking and Dagenham Borough of London.
 
-24,000 in barking & dagenham experience social isolation (based on the national average)
-
-45 - 50 years olds are the most effected age group. 
+24,000 people currently suffer from social isolation in Barking & Dagenham (based on the national average).
 
 People tend to start experiencing social isolation after certain life events such as:
 - Pregnancy
