@@ -83,7 +83,8 @@ The idea is that they would publish their place of a business as a good spot for
 
 - Helps drive engagement - people are more likely to use what they pay for
 
-### Cons
+
+### Cons
 
 - Social isolation linked to limited financial resources
 
