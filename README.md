@@ -3,25 +3,32 @@ CityDataHack March 2018
 
 We are working to solve social isolation for the Barking and Dagenham Borough of London.
 
-Resources:
+24,000 in barking & dagenham experience social isolation (based on the national average)
 
-- [Red Cross - ISOLATION AND LONELINESS An overview of the literature]
+45 - 50 years olds are the most effected age group. 
 
-Most affected by isolation in the borough 45 - 50 years old due to:
-- mobilty
-- divorce
-- retiring
-- death of partner
-- reduction in mobility
-- lack of economic resources
-- lack of access to technology
+People tend to start experiencing social isolation after certain life events such as:
+- Pregnancy
+- Divorce
+- Retiring
+- Death of partner
+- Reduction in mobility
+- Leaving hospital
+- Lack of economic resources
+- Lack of access to technology
 
-GP's do not have a comprehensive enough list of social activities and that prevents them from giving out social prescriptions.
+One important way we can address this problem is through the NHS using GP's and community services as a way to pick up early on these life events and suggest social interventions that can help avert a spiral into isolation before it starts.
 
-### Key challenges to social prescribing:
+In 2017 250 people recieved a social prescription for social isolation from GP practices in Barking and Dagenham. This is a tiny proportion of the roughly 24,000 estimated to suffer from social isolation in the borough.
+
+One of the key blockers to GP's using social prescribing more is lack of information about available services. 
+
+In a GP Online survey from 2017, 40% of GP's said they would refer more if they had more information about available services.
+
+### Other key challenges to social prescribing:
 
 According to a 2017 survey of 560 GPs, the key barriers to using social prescribing more are:
-- Lack of information about available services (40% said they would refer more if they had more information about available services *)
+- Lack of information about available services
 - Lack of funding
 - Perception of role and responsibilities (some GP's don't see it as their responsibility as it is non-medical)
 - Perception of negative political implications (some GP's felt that it places unfair burden on charities and community groups to support vulnerable people)
