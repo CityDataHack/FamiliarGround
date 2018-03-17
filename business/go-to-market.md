@@ -1,3 +1,9 @@
+# How to build
+
+1. Twilio for SMS gateway
+2. Serverless architecture for user registeration and management
+3. Chatbot as a service https://azure.microsoft.com/en-gb/services/bot-service/
+
 # Go to market Plan
 
 ## Contact point
@@ -58,7 +64,7 @@ Notify success of others.
 
 - There may not be budget to support the platform cost (SMS @ 5p per round trip)
 
-## Local business
+## Local business - advertising venues
 
 The idea is that they would publish their place of a business as a good spot for small-wins social events to take place.
 
@@ -71,36 +77,14 @@ The idea is that they would publish their place of a business as a good spot for
 - Business may not "advertise"
 - Could have dodgy businesses "advertising"
 
-## Advertising
-
 ## End User
 
+### Pros 
 
+- Helps drive engagement - people are more likely to use what they pay for
 
-# How to build
+### Cons
 
-
-
-
-
-# Horrible Questions
-
-1. Why hasn't this been done already
-2. What if no one goes to an event
-3. What if people only go to one event and don't go to any others.
-4. 
-
-
-# Opportunities
-
-1. Work across languages - defeats isolation brought about by being alone in a group. Meetup with others in the area that speak the same language. Auto-translate.
-2. Work with loc
-3. Figure out interests based on social media information
-4. 
-
-
-
-
-
+- Social isolation linked to limited financial resources
 
 

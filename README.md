@@ -53,9 +53,28 @@ Small-Wins is a text-message based service that facilitates social engagement. T
 
 Activities repeat at regular intervals (every few days).
 
-## Gotchas
+
+# Gotchas
 
 1. What if there are no meetups?
 
 We can facilitate meetings using other members of the app in the local area. If this is done, we will ensure that a few members of local volunteer groups are present to smooth social interactions.
+
+
+2. Why hasn't this been done already
+3. What if no one goes to an event
+4. What if people only go to one event and don't go to any others.
+
+# Opportunities
+
+1. Work across languages - defeats isolation brought about by being alone in a group. Meetup with others in the area that speak the same language. Auto-translate.
+2. Work with loc
+3. Figure out interests based on social media information
+4. 
+
+
+
+
+
+
 
