@@ -40,5 +40,22 @@ Small-Wins is a text-message based service that facilitates social engagement. T
 
 ## Activity
 
-1. SMS: "There are some things going on today - what do you want to attend: (1) coffee shop with "
+1. SMS: "There are some things going on today - what do you want to attend: (1) coffee shop with a few others. (2) pub with a few others. (3) knitting group [scraped from meetup.com]. (4) Not today"
+2. Responds with "3"
+3. SMS: "Okay great, the group is meeting at costa coffee on commercial road at 4pm."
+
+## After activity
+1. SMS: "Did you enjoy the coffee meetup?"
+2. SMS: "Any chance you remember the names of the people you met? It helps us check who attended."
+3. SMS: "Rate the location (1) Terrible -> (10) Great "
+
+## Repeat
+
+Activities repeat at regular intervals (every few days).
+
+## Gotchas
+
+1. What if there are no meetups?
+
+We can facilitate meetings using other members of the app in the local area. If this is done, we will ensure that a few members of local volunteer groups are present to smooth social interactions.
 
