@@ -40,7 +40,7 @@ class Messages(ndb.Model):
     updated_at = ndb.DateTimeProperty(auto_now=True)
 
 
-def renderTemplate(template_name, values={}):
+def render_template(template_name, values={}):
     path = os.path.join(os.path.dirname(__file__), 'templates/', template_name)
     template_values = {}
     response = template.render(path, values)
@@ -68,7 +68,7 @@ def send_message(to_number, message, user_key):
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        template = renderTemplate(template_name="index.html")
+        template = render_template(template_name="index.html")
         return self.response.out.write(template)
 
 class InboundMessageHandler(webapp2.RequestHandler):
@@ -125,7 +125,7 @@ class BroadcastMessageHandler(webapp2.RequestHandler):
             "users": users,
             "messages": messages
         }
-        template = renderTemplate(template_name="broadcast.html", values=values)
+        template = render_template(template_name="broadcast.html", values=values)
         return self.response.out.write(template)
 
     def post(self):
