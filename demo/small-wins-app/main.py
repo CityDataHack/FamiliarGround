@@ -16,7 +16,7 @@ import json
 import webapp2
 import logging
 from google.appengine.ext.webapp import template
-from google.appengine.ext import ndb
+from google.appengine.ext import ndb, deferred
 from google.appengine.api import users
 
 from twilio.rest import Client
@@ -53,20 +53,65 @@ def ajax_respond(self):
         data_to_send = data_wrapper + "(" + data_to_send + ")"
     return self.response.write(data_to_send)
 
+def send_message(to_number, message, user_key):
+    client = Client(ACCOUNT_SID, AUTH_TOKEN)
+    resp = client.messages.create(
+        to=to_number,
+        from_=SERVICE_NUMBER,
+        body=message)
+    new_message = Messages()
+    new_message.user_key = user_key
+    new_message.content = message
+    new_message.sid = resp.sid
+    new_message.direction = "outbound"
+    new_message.put()
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
         template = renderTemplate(template_name="index.html")
         return self.response.out.write(template)
 
-
-class RegisterNumberHandler(webapp2.RequestHandler):
+class InboundMessageHandler(webapp2.RequestHandler):
     def post(self):
-        new_user = RegisteredUsers()
-        new_user.number = str(self.request.get("inbound"))
-        new_user.name = str(self.request.get("body")).strip().split(" ")[0]
-        new_user.put()
-        return self.response.write('Ok!')
+        self.sid = self.request.get('MessageSid')
+        self.number = self.request.get('From')
+        self.body = self.request.get('Body')
 
+        check = RegisteredUsers.query()
+        check = check.filter(RegisteredUsers.number == self.number)
+        if check.count():
+            self.user_key = check.get().key
+            return self._already_registered()
+
+        return self._register()
+
+    def _record_message(self):
+        new_message = Messages()
+        new_message.user = self.user_key
+        new_message.content = self.body
+        new_message.direction = "inbound"
+        new_message.sid = self.sid
+        new_message.put()
+
+    def _already_registered(self):
+        self._record_message()
+        message = "Thank you for responding. This is just part of the presentation. \
+        The live version will be pushed in a little while. <3 from Small Wins."
+        deferred.defer(send_message, self.number, message, self.user_key)
+        return self.response.write('Ok')
+
+    def _register(self):
+        new_user = RegisteredUsers()
+        new_user.number = self.number
+        name = str(self.body).strip().split(" ")[0]
+        new_user.name = name
+        self.user_key = new_user.put()
+        self._record_message()
+
+        message = "Thank you for registering for Small Wins %s! We'll be in touch soon." % name
+        deferred.defer(send_message, self.number, message, self.user_key)
+
+        return self.response.write('Ok')
 
 class BroadcastMessageHandler(webapp2.RequestHandler):
     def get(self):
@@ -84,20 +129,12 @@ class BroadcastMessageHandler(webapp2.RequestHandler):
         return self.response.out.write(template)
 
     def post(self):
-        client = Client(ACCOUNT_SID, AUTH_TOKEN)
         message = self.request.get("message")
-        numbers = RegisteredUsers.query()
-        for user in numbers:
+        users = RegisteredUsers.query()
+        for user in users:
             to_number = user.number
-            resp = client.messages.create(
-                to=to_number,
-                from_=SERVICE_NUMBER,
-                body=message)
-            new_message = Messages()
-            new_message.user_key = user.key
-            new_message.content = message
-            new_message.sid = resp.sid
-            new_message.put()
+            deferred.defer(send_message, to_number, message, user.key)
+
         self.response_dict = {
             "message": "Message sent! (%s)" % message
         }
@@ -106,6 +143,6 @@ class BroadcastMessageHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/register', RegisterNumberHandler),
+    ('/inbound', InboundMessageHandler),
     ('/broadcast', BroadcastMessageHandler),
 ], debug=True)

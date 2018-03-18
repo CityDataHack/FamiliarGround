@@ -2,10 +2,22 @@ runtime: python27
 api_version: 1
 threadsafe: true
 
+builtins:
+  - deferred: on
+
+libraries:
+- name: webapp2
+  version: latest
+
 handlers:
+- url: /_ah/queue/deferred
+  script: google.appengine.ext.deferred.deferred.application
+  login: admin
+
 - url: /broadcast
   script: main.app
   login: admin
 
 - url: /.*
   script: main.app
+
