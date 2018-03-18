@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import os
+import json
 import webapp2
 import logging
 from google.appengine.ext.webapp import template
@@ -22,11 +23,22 @@ from twilio.rest import Client
 
 from env_variables import ACCOUNT_SID, AUTH_TOKEN, SERVICE_NUMBER
 
+
 class RegisteredUsers(ndb.Model):
     name = ndb.StringProperty(default="")
     number = ndb.StringProperty(default="")
     created_at = ndb.DateTimeProperty(auto_now_add=True)
     updated_at = ndb.DateTimeProperty(auto_now=True)
+
+
+class Messages(ndb.Model):
+    user_key = ndb.KeyProperty()
+    content = ndb.TextProperty(default="")
+    direction = ndb.StringProperty(default="")  # outbound / inbound
+    sid = ndb.StringProperty(default="")
+    created_at = ndb.DateTimeProperty(auto_now_add=True)
+    updated_at = ndb.DateTimeProperty(auto_now=True)
+
 
 def renderTemplate(template_name, values={}):
     path = os.path.join(os.path.dirname(__file__), 'templates/', template_name)
@@ -34,10 +46,18 @@ def renderTemplate(template_name, values={}):
     response = template.render(path, values)
     return response
 
+def ajax_respond(self):
+    data_to_send = json.dumps(self.response_dict)
+    data_wrapper = self.request.get('callback')
+    if data_wrapper:  # for jquery requests
+        data_to_send = data_wrapper + "(" + data_to_send + ")"
+    return self.response.write(data_to_send)
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
         template = renderTemplate(template_name="index.html")
         return self.response.out.write(template)
+
 
 class RegisterNumberHandler(webapp2.RequestHandler):
     def post(self):
@@ -51,9 +71,17 @@ class RegisterNumberHandler(webapp2.RequestHandler):
 class BroadcastMessageHandler(webapp2.RequestHandler):
     def get(self):
         users = RegisteredUsers.query()
-        template = renderTemplate(template_name="broadcast.html", values=users)
+        messages = [
+            "Hi %s, thanks for signing up! Let's learn a little more about you.",
+            "On a scale of 1-10 how much time do you spend engaging with the Barking and Dagenham community?",
+            "Where 1 is never and 10 is every day.",
+        ]
+        values = {
+            "users": users,
+            "messages": messages
+        }
+        template = renderTemplate(template_name="broadcast.html", values=values)
         return self.response.out.write(template)
-
 
     def post(self):
         client = Client(ACCOUNT_SID, AUTH_TOKEN)
@@ -61,14 +89,19 @@ class BroadcastMessageHandler(webapp2.RequestHandler):
         numbers = RegisteredUsers.query()
         for user in numbers:
             to_number = user.number
-            message = client.messages.create(
+            resp = client.messages.create(
                 to=to_number,
                 from_=SERVICE_NUMBER,
                 body=message)
-
-            print(message.sid)
-        response = "Message (%s) sent!" % message
-        return self.response.write(response)
+            new_message = Messages()
+            new_message.user_key = user.key
+            new_message.content = message
+            new_message.sid = resp.sid
+            new_message.put()
+        self.response_dict = {
+            "message": "Message sent! (%s)" % message
+        }
+        return ajax_respond(self)
 
 
 app = webapp2.WSGIApplication([
